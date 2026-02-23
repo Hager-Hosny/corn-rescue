@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['Fredoka', 'sans-serif'],
+        body: ['Nunito', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -46,6 +50,23 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        corn: {
+          gold: "hsl(var(--corn-gold))",
+          light: "hsl(var(--corn-light))",
+        },
+        earth: {
+          brown: "hsl(var(--earth-brown))",
+          light: "hsl(var(--earth-light))",
+        },
+        worm: {
+          pink: "hsl(var(--worm-pink))",
+          dark: "hsl(var(--worm-dark))",
+        },
+        sky: "hsl(var(--sky-blue))",
+        grass: {
+          DEFAULT: "hsl(var(--grass-green))",
+          light: "hsl(var(--grass-light))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
