@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import GameBoard from "@/components/game/GameBoard";
+import { startBackgroundMusic, stopBackgroundMusic, playGameOverSound } from "@/lib/sounds";
 
 type GameState = "menu" | "playing" | "gameover";
 
@@ -19,9 +20,12 @@ const Index = () => {
     setDifficulty(1);
     setGameKey(k => k + 1);
     setGameState("playing");
+    startBackgroundMusic();
   };
 
   const handleGameOver = useCallback(() => {
+    stopBackgroundMusic();
+    playGameOverSound();
     setGameState("gameover");
     setHighScore(prev => {
       const newHigh = Math.max(prev, score);

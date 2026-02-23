@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { playSquashSound, playDamageSound, playComboSound } from "@/lib/sounds";
 
 interface Worm {
   id: number;
@@ -100,6 +101,7 @@ const GameBoard = ({ onScoreChange, onLivesChange, onGameOver, isPlaying, diffic
         });
 
         if (expired.length > 0) {
+          playDamageSound();
           setCornHealth(ch => {
             const newHealth = { ...ch };
             expired.forEach(w => {
@@ -139,6 +141,8 @@ const GameBoard = ({ onScoreChange, onLivesChange, onGameOver, isPlaying, diffic
     setWorms(prev => prev.map(w => w.id === wormId ? { ...w, squashed: true } : w));
     const newCombo = combo + 1;
     setCombo(newCombo);
+    playSquashSound();
+    if (newCombo > 1) playComboSound(newCombo);
     const points = 10 * Math.min(newCombo, 5);
     setScore(s => s + points);
   }, [combo]);
