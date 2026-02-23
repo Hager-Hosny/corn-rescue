@@ -1,8 +1,13 @@
-import { useState, useCallback, useEffect } from "react";
-import GameBoard from "@/components/game/GameBoard";
+import { useState, useCallback, useRef, useEffect } from "react";
+import GameBoard, { PowerUp, PowerUpType } from "@/components/game/GameBoard";
 import { startBackgroundMusic, stopBackgroundMusic, playGameOverSound } from "@/lib/sounds";
 
 type GameState = "menu" | "playing" | "gameover";
+
+const POWERUP_TYPES: PowerUpType[] = ["pesticide", "shield", "fertilizer"];
+const POWERUP_SPAWN_INTERVAL = 12000; // every 12s
+const POWERUP_LIFETIME = 10000; // expires after 10s
+const SHIELD_DURATION = 5000;
 
 const Index = () => {
   const [gameState, setGameState] = useState<GameState>("menu");
@@ -13,12 +18,18 @@ const Index = () => {
   });
   const [difficulty, setDifficulty] = useState(1);
   const [gameKey, setGameKey] = useState(0);
+  const [powerUps, setPowerUps] = useState<PowerUp[]>([]);
+  const [shieldActive, setShieldActive] = useState(false);
+  const nextPuId = useRef(0);
+  const shieldTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const startGame = () => {
     setScore(0);
     setLives(5);
     setDifficulty(1);
     setGameKey(k => k + 1);
+    setPowerUps([]);
+    setShieldActive(false);
     setGameState("playing");
     startBackgroundMusic();
   };
@@ -26,6 +37,8 @@ const Index = () => {
   const handleGameOver = useCallback(() => {
     stopBackgroundMusic();
     playGameOverSound();
+    setShieldActive(false);
+    if (shieldTimer.current) clearTimeout(shieldTimer.current);
     setGameState("gameover");
     setHighScore(prev => {
       const newHigh = Math.max(prev, score);
@@ -34,11 +47,47 @@ const Index = () => {
     });
   }, [score]);
 
-  // Increase difficulty over time
   const handleScoreChange = useCallback((newScore: number) => {
     setScore(newScore);
     setDifficulty(1 + Math.floor(newScore / 50));
   }, []);
+
+  // Spawn power-ups periodically
+  useEffect(() => {
+    if (gameState !== "playing") return;
+    const interval = setInterval(() => {
+      const type = POWERUP_TYPES[Math.floor(Math.random() * POWERUP_TYPES.length)];
+      const id = nextPuId.current++;
+      setPowerUps(prev => {
+        // Max 3 power-ups at a time
+        const active = prev.filter(p => p.expiresAt > Date.now());
+        if (active.length >= 3) return active;
+        return [...active, { id, type, expiresAt: Date.now() + POWERUP_LIFETIME }];
+      });
+    }, POWERUP_SPAWN_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, [gameState]);
+
+  // Expire power-ups
+  useEffect(() => {
+    if (gameState !== "playing") return;
+    const interval = setInterval(() => {
+      setPowerUps(prev => prev.filter(p => p.expiresAt > Date.now()));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [gameState]);
+
+  const handleUsePowerUp = useCallback((id: number) => {
+    const pu = powerUps.find(p => p.id === id);
+    setPowerUps(prev => prev.filter(p => p.id !== id));
+
+    if (pu?.type === "shield") {
+      setShieldActive(true);
+      if (shieldTimer.current) clearTimeout(shieldTimer.current);
+      shieldTimer.current = setTimeout(() => setShieldActive(false), SHIELD_DURATION);
+    }
+  }, [powerUps]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-4 py-8 overflow-hidden relative">
@@ -66,6 +115,12 @@ const Index = () => {
             <p className="text-foreground/80 text-center max-w-xs font-body">
               Worms are attacking your corn field! Tap them quickly to protect your harvest.
             </p>
+            <div className="flex gap-4 text-2xl">
+              <span title="Pesticide - clears all worms">🧪</span>
+              <span title="Shield - blocks damage">🛡️</span>
+              <span title="Fertilizer - heals corn">💚</span>
+            </div>
+            <p className="text-muted-foreground text-xs font-body">Power-ups spawn during gameplay!</p>
             {highScore > 0 && (
               <p className="text-secondary font-display font-bold text-lg">
                 🏆 Best: {highScore}
@@ -100,6 +155,9 @@ const Index = () => {
               onGameOver={handleGameOver}
               isPlaying={gameState === "playing"}
               difficulty={difficulty}
+              powerUps={powerUps}
+              onUsePowerUp={handleUsePowerUp}
+              shieldActive={shieldActive}
             />
 
             <div className="text-center mt-3">
