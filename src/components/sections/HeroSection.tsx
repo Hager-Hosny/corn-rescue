@@ -1,9 +1,23 @@
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
+
 const HeroSection = () => {
   return (
     <section id="home" className="pt-24 pb-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Hero */}
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          variants={fadeUp}
+        >
           <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-4">
             🌽 Cornflex
           </h1>
@@ -15,19 +29,33 @@ const HeroSection = () => {
             and fights pests like fall armyworm using eco-friendly products. We believe in building
             a sustainable future — one cornfield at a time.
           </p>
-        </div>
+        </motion.div>
 
         {/* Vision & Mission */}
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          <div className="bg-card rounded-2xl p-8 border border-border shadow-sm">
+          <motion.div
+            className="bg-card rounded-2xl p-8 border border-border shadow-sm"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            variants={fadeUp}
+          >
             <div className="text-4xl mb-4">🌱</div>
             <h2 className="font-display text-2xl font-bold text-primary mb-3">Our Vision</h2>
             <p className="font-body text-foreground/70 leading-relaxed">
               A world where agricultural waste is no longer a burden but a resource — fueling innovation,
               protecting biodiversity, and empowering farming communities through circular economy solutions.
             </p>
-          </div>
-          <div className="bg-card rounded-2xl p-8 border border-border shadow-sm">
+          </motion.div>
+          <motion.div
+            className="bg-card rounded-2xl p-8 border border-border shadow-sm"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            variants={fadeUp}
+          >
             <div className="text-4xl mb-4">🎯</div>
             <h2 className="font-display text-2xl font-bold text-primary mb-3">Our Mission</h2>
             <p className="font-body text-foreground/70 leading-relaxed">
@@ -35,7 +63,7 @@ const HeroSection = () => {
               reduce pollution, and create value from what was once discarded — making sustainability
               accessible and profitable for farmers everywhere.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
