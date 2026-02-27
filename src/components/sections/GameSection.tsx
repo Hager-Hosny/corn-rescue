@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import GameBoard, { PowerUp, PowerUpType } from "@/components/game/GameBoard";
 import { startBackgroundMusic, stopBackgroundMusic, playGameOverSound } from "@/lib/sounds";
 
@@ -90,13 +91,13 @@ const GameSection = () => {
   return (
     <section id="game" className="py-16 px-4 bg-muted/50">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8">
+        <motion.div className="text-center mb-8" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5 }}>
           <h2 className="font-display text-4xl font-bold text-primary mb-3">🎮 Play the Game</h2>
           <p className="font-body text-foreground/70 max-w-2xl mx-auto">
             This game demonstrates how Cornflex protects crops from pests and reduces agricultural waste.
             Squash the worms before they destroy the harvest!
           </p>
-        </div>
+        </motion.div>
 
         <div className="max-w-lg mx-auto">
           {gameState === "menu" && (
