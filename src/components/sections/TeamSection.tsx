@@ -1,27 +1,32 @@
+import teamAhmed from "@/assets/team-ahmed.jpg";
+import teamSara from "@/assets/team-sara.jpg";
+import teamYoussef from "@/assets/team-youssef.jpg";
+import teamNadia from "@/assets/team-nadia.jpg";
+
 const TEAM_MEMBERS = [
   {
     name: "Ahmed Benali",
     role: "Founder & CEO",
     bio: "Passionate about sustainable agriculture and circular economy. Leading Cornflex's vision to transform waste into value.",
-    emoji: "👨‍💼",
+    image: teamAhmed,
   },
   {
     name: "Sara Mansour",
     role: "Head of R&D",
     bio: "Biochemist specializing in biopolymers and natural pest control solutions derived from agricultural residues.",
-    emoji: "👩‍🔬",
+    image: teamSara,
   },
   {
     name: "Youssef Karim",
     role: "Product Designer",
     bio: "Industrial designer focused on creating sustainable furniture and acoustic panels from corn waste fibers.",
-    emoji: "👨‍🎨",
+    image: teamYoussef,
   },
   {
     name: "Nadia Chaker",
     role: "Operations Manager",
     bio: "Expert in supply chain management, ensuring eco-friendly production and distribution of all Cornflex products.",
-    emoji: "👩‍💻",
+    image: teamNadia,
   },
 ];
 
@@ -42,9 +47,11 @@ const TeamSection = () => {
               key={member.name}
               className="bg-card rounded-2xl p-6 border border-border shadow-sm text-center hover:shadow-md transition-shadow"
             >
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <span className="text-4xl">{member.emoji}</span>
-              </div>
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-2 border-primary/20"
+              />
               <h3 className="font-display text-lg font-bold text-foreground mb-1">{member.name}</h3>
               <p className="font-body text-sm text-secondary font-semibold mb-3">{member.role}</p>
               <p className="font-body text-sm text-foreground/60 leading-relaxed">{member.bio}</p>
