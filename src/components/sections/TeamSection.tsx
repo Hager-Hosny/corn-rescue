@@ -1,14 +1,24 @@
 import { motion } from "framer-motion";
-import teamAhmed from "@/assets/team-ahmed.jpg";
-import teamSara from "@/assets/team-sara.jpg";
-import teamYoussef from "@/assets/team-youssef.jpg";
-import teamNadia from "@/assets/team-nadia.jpg";
+import teamEman from "@/assets/1.jpeg";
+import teamAhmed from "@/assets/2.jpeg";
+import teamShahd from "@/assets/3.jpeg";
+import teamHager from "@/assets/4.jpeg";
+import teamNer from "@/assets/5.jpeg";
+import teamRO from "@/assets/6.jpeg";
+import teamSA from "@/assets/7.jpeg";
+import teamSH from "@/assets/8.jpeg";
+
+
 
 const TEAM_MEMBERS = [
-  { name: "Ahmed Benali", role: "Founder & CEO", bio: "Passionate about sustainable agriculture and circular economy. Leading Cornflex's vision to transform waste into value.", image: teamAhmed },
-  { name: "Sara Mansour", role: "Head of R&D", bio: "Biochemist specializing in biopolymers and natural pest control solutions derived from agricultural residues.", image: teamSara },
-  { name: "Youssef Karim", role: "Product Designer", bio: "Industrial designer focused on creating sustainable furniture and acoustic panels from corn waste fibers.", image: teamYoussef },
-  { name: "Nadia Chaker", role: "Operations Manager", bio: "Expert in supply chain management, ensuring eco-friendly production and distribution of all Cornflex products.", image: teamNadia },
+  { name: "Eman Gad", role: "Project team",  image: teamEman },
+  { name: "Ahmed Galal", role: "Project team",  image: teamAhmed },
+  { name: "Shahd ibrahim", role: "Logistics team",  image: teamShahd },
+  { name: "Hager Hosni", role: "Presentation team",  image: teamHager },
+  { name: "Nermin Hussein", role: "Presentation team",  image: teamNer },
+  { name: "Roqia belal", role: "Logistics team",  image: teamRO },
+  { name: "Yara Waled", role: "PR & FR team",  image: teamSA },
+  { name: "Shahd Shatla", role: "HR team",  image: teamSH },
 ];
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } };
@@ -36,7 +46,6 @@ const TeamSection = () => {
               <img src={member.image} alt={member.name} className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-2 border-primary/20" />
               <h3 className="font-display text-lg font-bold text-foreground mb-1">{member.name}</h3>
               <p className="font-body text-sm text-secondary font-semibold mb-3">{member.role}</p>
-              <p className="font-body text-sm text-foreground/60 leading-relaxed">{member.bio}</p>
             </motion.div>
           ))}
         </div>

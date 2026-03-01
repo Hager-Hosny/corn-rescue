@@ -19,8 +19,8 @@ const HeroSection = () => {
           variants={fadeUp}
         >
           <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-4">
-            🌽 Cornflex
-          </h1>
+  <img src={'src/assets/logo.png'} alt="Cornflex" className="mx-auto h-16 sm:h-20 md:h-24" />
+</h1>
           <p className="font-display text-xl sm:text-2xl text-secondary font-semibold mb-6">
             Turning Corn Waste into Sustainable Solutions
           </p>
@@ -41,7 +41,7 @@ const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             variants={fadeUp}
           >
-            <div className="text-4xl mb-4">🌱</div>
+            <div className="text-4xl mb-4"></div>
             <h2 className="font-display text-2xl font-bold text-primary mb-3">Our Vision</h2>
             <p className="font-body text-foreground/70 leading-relaxed">
               A world where agricultural waste is no longer a burden but a resource — fueling innovation,
@@ -56,7 +56,7 @@ const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.25 }}
             variants={fadeUp}
           >
-            <div className="text-4xl mb-4">🎯</div>
+            <div className="text-4xl mb-4"></div>
             <h2 className="font-display text-2xl font-bold text-primary mb-3">Our Mission</h2>
             <p className="font-body text-foreground/70 leading-relaxed">
               To develop and deliver eco-friendly products derived from corn waste that protect crops,

@@ -16,9 +16,16 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/90 backdrop-blur-md border-b border-border shadow-sm">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 h-16">
-        <a href="#home" className="font-display text-2xl font-bold text-primary flex items-center gap-2">
-          🌽 Cornflex
-        </a>
+        <a
+  href="#home"
+  className="flex items-center gap-2"
+>
+  <img
+    src={'src/assets/logo.png'}
+    alt="CornCore"
+    className="h-10 w-auto"
+  />
+</a>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
